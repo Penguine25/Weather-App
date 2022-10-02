@@ -4,90 +4,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Weather App</title>
-    <!-- <script src="https://kit.fontawesome.com/c3e0e1b824.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script> -->
 </head>
 <style>
-    *,
-    ::before,
-    ::after
-    {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    *{
+        margin:0;
+        padding:0;
         font-family: 'Century Gothic';
+        box-sizing: border-box;
     }
     .main{
-        display: flex;
         height: 100vh;
         width: 100%;
         background: linear-gradient(rgb(167, 96, 255), rgb(202, 130, 255));
-        position: fixed;
+        display: flex;
         align-items: center;
-        justify-content: space-around;
-        /* flex-direction: column; */
+        justify-content: center;
+        position: fixed;
     }
-    .box{
-        height: 70vh;
-        width: 35%;
-        background: #fff;
-        border-radius: 13px;
+    .wrapper{
+        width: 30%;
+        /* background: red; */
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
     }
-    .box h2{
-        font-weight: 500;
-        letter-spacing: 2px;
+    .search{
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .box img{
-        width: 50%;
-        height: 50%;
+    .search #inputPlace {
+        width: 80%;
+        outline: none;
+        font-size: 16px;
+        padding: 5px;
+        border: none;
+        border: 1px solid rgb(202, 130, 255);
+    }
+    .search .btn{
+        width: 20%;
+        padding: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        background: #fff;
+        border: 1px solid rgb(202, 130, 255);
+        color: rgb(202, 130, 255);
+    }
+    .box {
+        background: #fff;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 8px;
+    }
+    .box h2{
+        letter-spacing: 2px;
+        font-weight: 500;
+        margin-bottom: 20px;
     }
     .box p{
-        font-size: 18px;
-    }
-    .black{
-        background: black;
-        color: #fff;
-    }
-    #blackbtn{
-        background: none;
-        border: 1px solid transparent;
-        outline: none;
-        font-size: 25px;
-        color: rgb(167, 96, 255);
-        padding: 5px 10px;
-        width: 15%;
-        cursor: pointer;
-        border-radius: 8px;
-        margin-top: 20px;
-    }
-    .bg-img{
-        width: 40%;
+        letter-spacing: 1px;
     }
 </style>
 <body>
     <div class="main">
-        <div class="box">
-            <h2>{%TITLE%}</h2>
-            <!-- <img src="./imgs/sunny.svg" alt="sunny"> -->
-            <p>{%PLACE%}, {%DEGREE%}°C</p>
-            <button id="blackbtn">
-                <i class="fa-thin fa-lightbulb"></i>
-            </button>
+        <div class="wrapper">
+            <div class="search">
+                <input type="text" placeholder="Enter Place.." name="inputPlace" id="inputPlace" />
+                <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="box">
+                <h2>{%PLACE%}</h2>
+                <p>{%TITLE%}, {%DEGREE%}°C</p>
+            </div>
         </div>
-        <!-- <img class="bg-img" src="nature.svg" alt=""> -->
     </div>
-    <!-- <script>
-        $(function(){
-            $('#blackbtn').on('click', (event) => {
-                $('.box').toggleClass('black');
-                // console.log(event);
-            });
-        });
-    </script> -->
 </body>
 </html>
