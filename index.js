@@ -6,32 +6,54 @@ require('dotenv').config();
 
 const homePage = fs.readFileSync(`${__dirname}/home.html`, 'utf-8');
 const key = process.env.API_KEY;
-const api = `https://api.openweathermap.org/data/2.5/weather?q=Ranchi&appid=${key}`;
+var api = `https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=${key}`;
 
 const changeIntoCelcius = (temp) => {
     return Math.round((temp - 273.15));
 }
 
+function replaceKeywords(place, title, temp) {
+    let output = homePage.replace('{%TITLE%}', title);
+    output = output.replace('{%PLACE%}', place);
+    output = output.replace('{%DEGREE%}', temp);
+    return output;
+}
+
 axios.get(api)
     .then(function(response){
         dataobj = response.data;
-        global.temp = changeIntoCelcius(dataobj.main.temp);
-        global.title = dataobj.weather[0].main;
-        global.place = dataobj.name;
+        temp = changeIntoCelcius(dataobj.main.temp);
+        title = dataobj.weather[0].main;
+        place = dataobj.name;
     })
     .catch(function(err){
         console.log(err);
     })
-
+    
 const server = http.createServer((req, res) => {
     const { query, pathname } = url.parse(req.url, true);
 
     if(pathname === '/' || pathname === '/home'){
-        let o = homePage.replace('{%TITLE%}', global.title);
-        o = o.replace('{%PLACE%}', global.place);
-        o = o.replace('{%DEGREE%}', global.temp);
+        o = replaceKeywords(place, title, temp);
         res.writeHead(200, { 'Content-type' : 'text/html' });
         res.end(o);
+    }
+    else if(pathname === '/search'){
+        console.log(query.place);
+        api = `https://api.openweathermap.org/data/2.5/weather?q=${query.place}&appid=${key}`;
+        axios.get(api)
+            .then(function (response) {
+                obj = response.data;
+                temp_ = changeIntoCelcius(obj.main.temp);
+                title_ = obj.weather[0].main;
+                place_ = obj.name;
+                j = replaceKeywords(place_, title_, temp_);
+                res.end(j);
+            })
+            .catch(function (err) {
+                res.writeHead(200, { 'Content-type' : 'text/html' });
+                res.end('<h1>Place not recognized</h1>');
+            })
     }
     else{
         res.writeHead(404, { 'Content-Type' : 'text/html'})

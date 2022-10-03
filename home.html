@@ -77,10 +77,10 @@
 <body>
     <div class="main">
         <div class="wrapper">
-            <div class="search">
-                <input type="text" placeholder="Enter Place.." name="inputPlace" id="inputPlace" />
+            <form class="search" method="get" action="/search">
+                <input type="text" placeholder="Enter Place.." name="place" id="inputPlace">
                 <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            </form>
             <div class="box">
                 <h2>{%PLACE%}</h2>
                 <p>{%TITLE%}, {%DEGREE%}°C</p>
