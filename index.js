@@ -2,9 +2,11 @@ const fs = require('fs');
 const http = require('http');
 const url = require('url');
 const axios = require('axios').default;
+require('dotenv').config();
 
 const homePage = fs.readFileSync(`${__dirname}/home.html`, 'utf-8');
-const api = 'https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=38bd620eb77090ab0e878c33719f4685';
+const key = process.env.API_KEY;
+const api = `https://api.openweathermap.org/data/2.5/weather?q=Ranchi&appid=${key}`;
 
 const changeIntoCelcius = (temp) => {
     return Math.round((temp - 273.15));
