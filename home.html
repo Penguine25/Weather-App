@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
     <title>Weather App</title>
 </head>
 <style>
@@ -45,6 +46,9 @@
         padding: 5px;
         border: none;
         border: 1px solid rgb(202, 130, 255);
+        box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -webkit-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -moz-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
     }
     .search .btn{
         width: 20%;
@@ -54,12 +58,18 @@
         background: #fff;
         border: 1px solid rgb(202, 130, 255);
         color: rgb(202, 130, 255);
+        box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -webkit-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -moz-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
     }
     .box {
         background: #fff;
         width: 100%;
         padding: 20px;
         display: flex;
+        box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -webkit-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
+        -moz-box-shadow: 10px 10px 18px 0px rgba(122,122,122,0.27);
         align-items: center;
         justify-content: center;
         flex-direction: column;
@@ -68,10 +78,26 @@
     .box h2{
         letter-spacing: 2px;
         font-weight: 500;
-        margin-bottom: 20px;
     }
     .box p{
         letter-spacing: 1px;
+        font-size:17px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    #blackbtn{
+        background: none;
+        border: 1px solid transparent;
+        outline: none;
+        font-size: 24px;
+        color: rgb(167, 96, 255);
+        padding: 5px 10px;
+        width: 15%;
+        cursor: pointer;
+    }
+    .black{
+        color: #ffffff;
+        background: black;
     }
 </style>
 <body>
@@ -84,8 +110,19 @@
             <div class="box">
                 <h2>{%PLACE%}</h2>
                 <p>{%TITLE%} | {%DEGREE%}°C | {%COUNTRY%}</p>
+                <button id="blackbtn">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </button>
             </div>
         </div>
     </div>
+    <script>
+        $(function(){
+            $("#blackbtn").on("click", function(event){
+                $(".box").toggleClass("black");
+                $("#inputPlace").toggleClass("black");
+            });
+        });
+    </script>
 </body>
 </html>
