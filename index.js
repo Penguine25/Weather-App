@@ -12,10 +12,11 @@ const changeIntoCelcius = (temp) => {
     return Math.round((temp - 273.15));
 }
 
-function replaceKeywords(place, title, temp) {
+function replaceKeywords(place, title, temp, country) {
     let output = homePage.replace('{%TITLE%}', title);
     output = output.replace('{%PLACE%}', place);
     output = output.replace('{%DEGREE%}', temp);
+    output = output.replace('{%COUNTRY%}', country)
     return output;
 }
 
@@ -25,6 +26,7 @@ axios.get(api)
         temp = changeIntoCelcius(dataobj.main.temp);
         title = dataobj.weather[0].main;
         place = dataobj.name;
+        country = dataobj.sys.country;
     })
     .catch(function(err){
         console.log(err);
@@ -34,7 +36,7 @@ const server = http.createServer((req, res) => {
     const { query, pathname } = url.parse(req.url, true);
 
     if(pathname === '/' || pathname === '/home'){
-        o = replaceKeywords(place, title, temp);
+        o = replaceKeywords(place, title, temp, country);
         res.writeHead(200, { 'Content-type' : 'text/html' });
         res.end(o);
     }
@@ -47,7 +49,8 @@ const server = http.createServer((req, res) => {
                 temp_ = changeIntoCelcius(obj.main.temp);
                 title_ = obj.weather[0].main;
                 place_ = obj.name;
-                j = replaceKeywords(place_, title_, temp_);
+                country_ = obj.sys.country;
+                j = replaceKeywords(place_, title_, temp_, country_);
                 res.end(j);
             })
             .catch(function (err) {
